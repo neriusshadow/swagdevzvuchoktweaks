@@ -704,12 +704,15 @@
           '<div class="zv-progress-bar-fill" id="zv-prog-fill" style="width: 0%;"></div>' +
         '</div>' +
         '<div class="zv-progress-footer">' +
-          '<span class="zv-progress-count" id="zv-prog-count">0 / ' + tracks.length + '</span>' +
+          '<span class="zv-progress-count" id="zv-prog-count"></span>' +
           '<button class="zv-btn-action" id="zv-prog-cancel">Отмена</button>' +
         '</div>' +
       '</div>';
 
     document.body.appendChild(overlay);
+
+    var countEl = document.getElementById('zv-prog-count');
+    if (countEl) countEl.textContent = '0 / ' + tracks.length;
 
     document.getElementById('zv-prog-cancel').addEventListener('click', function () {
       zipDownloadAbort = true;
@@ -885,17 +888,7 @@
     overlay.id = 'zv-dsp-modal-overlay';
     overlay.className = 'zv-modal-overlay';
 
-    var eqColsHtml = '';
     var labels = ['32', '64', '125', '250', '500', '1k', '2k', '4k', '8k', '16k'];
-    for (var i = 0; i < 10; i++) {
-      var val = bands[i] || 0;
-      eqColsHtml += 
-        '<div class="zv-eq-col">' +
-          '<span class="zv-eq-val" id="zv-modal-eqv-' + i + '">' + (val > 0 ? '+' : '') + val + '</span>' +
-          '<input type="range" class="zv-eq-slider-v" orient="vertical" data-eq-idx="' + i + '" min="-12" max="12" step="1" value="' + val + '">' +
-          '<span class="zv-eq-label">' + labels[i] + '</span>' +
-        '</div>';
-    }
 
     overlay.innerHTML = 
       '<div class="zv-modal-box">' +
@@ -916,36 +909,36 @@
               '<option value="custom">Пользовательский</option>' +
             '</select>' +
             '<label style="margin-left:auto; display:flex; align-items:center; gap:5px; font-weight:bold; cursor:pointer;">' +
-              '<input type="checkbox" id="zv-modal-dsp-en" ' + (currentSettings.dspEnabled !== false ? 'checked' : '') + '> ' +
+              '<input type="checkbox" id="zv-modal-dsp-en"> ' +
               'Включен' +
             '</label>' +
           '</div>' +
-          '<div class="zv-eq-grid">' + eqColsHtml + '</div>' +
+          '<div class="zv-eq-grid" id="zv-modal-eq-grid"></div>' +
           '<div class="zv-fx-grid">' +
             '<div class="zv-fx-card">' +
               '<div class="zv-fx-title-row">' +
                 '<span class="zv-fx-title">🔊 Bass Boost:</span>' +
-                '<span class="zv-fx-val" id="zv-modal-bass-val">+' + bass + ' dB</span>' +
+                '<span class="zv-fx-val" id="zv-modal-bass-val"></span>' +
               '</div>' +
-              '<input type="range" id="zv-modal-bass" class="zv-fx-slider" min="0" max="15" step="1" value="' + bass + '">' +
+              '<input type="range" id="zv-modal-bass" class="zv-fx-slider" min="0" max="15" step="1">' +
             '</div>' +
             '<div class="zv-fx-card">' +
               '<div class="zv-fx-title-row">' +
                 '<span class="zv-fx-title">🌌 Реверберация:</span>' +
-                '<span class="zv-fx-val" id="zv-modal-reverb-val">' + reverb + '%</span>' +
+                '<span class="zv-fx-val" id="zv-modal-reverb-val"></span>' +
               '</div>' +
-              '<input type="range" id="zv-modal-reverb" class="zv-fx-slider" min="0" max="100" step="5" value="' + reverb + '">' +
+              '<input type="range" id="zv-modal-reverb" class="zv-fx-slider" min="0" max="100" step="5">' +
             '</div>' +
           '</div>' +
           '<div class="zv-fx-card" style="margin-top:10px;">' +
             '<div class="zv-fx-title-row">' +
               '<span class="zv-fx-title">⚡ Скорость & Pitch:</span>' +
-              '<span class="zv-fx-val" id="zv-modal-speed-val">' + speed.toFixed(2) + 'x</span>' +
+              '<span class="zv-fx-val" id="zv-modal-speed-val"></span>' +
             '</div>' +
-            '<input type="range" id="zv-modal-speed" class="zv-fx-slider" min="0.5" max="2.0" step="0.05" value="' + speed + '">' +
+            '<input type="range" id="zv-modal-speed" class="zv-fx-slider" min="0.5" max="2.0" step="0.05">' +
             '<div style="margin-top:6px; display:flex; align-items:center; justify-content:space-between;">' +
               '<label style="display:flex; align-items:center; gap:5px; cursor:pointer; font-size:11px;">' +
-                '<input type="checkbox" id="zv-modal-pitch" ' + (pitch ? 'checked' : '') + '> Сохранять тональность (Pitch Preserve)' +
+                '<input type="checkbox" id="zv-modal-pitch"> Сохранять тональность (Pitch Preserve)' +
               '</label>' +
             '</div>' +
             '<div class="zv-quick-modes">' +
@@ -958,6 +951,59 @@
       '</div>';
 
     document.body.appendChild(overlay);
+
+    var dspEnEl = document.getElementById('zv-modal-dsp-en');
+    if (dspEnEl) dspEnEl.checked = (currentSettings.dspEnabled !== false);
+
+    var bassValEl = document.getElementById('zv-modal-bass-val');
+    if (bassValEl) bassValEl.textContent = '+' + bass + ' dB';
+    var bassEl = document.getElementById('zv-modal-bass');
+    if (bassEl) bassEl.value = String(bass);
+
+    var revValEl = document.getElementById('zv-modal-reverb-val');
+    if (revValEl) revValEl.textContent = reverb + '%';
+    var revEl = document.getElementById('zv-modal-reverb');
+    if (revEl) revEl.value = String(reverb);
+
+    var spdValEl = document.getElementById('zv-modal-speed-val');
+    if (spdValEl) spdValEl.textContent = speed.toFixed(2) + 'x';
+    var spdEl = document.getElementById('zv-modal-speed');
+    if (spdEl) spdEl.value = String(speed);
+
+    var pitchEl = document.getElementById('zv-modal-pitch');
+    if (pitchEl) pitchEl.checked = pitch;
+
+    var grid = document.getElementById('zv-modal-eq-grid');
+    if (grid) {
+      for (var i = 0; i < 10; i++) {
+        var col = document.createElement('div');
+        col.className = 'zv-eq-col';
+
+        var valSpan = document.createElement('span');
+        valSpan.className = 'zv-eq-val';
+        valSpan.id = 'zv-modal-eqv-' + i;
+        valSpan.textContent = ((bands[i] || 0) > 0 ? '+' : '') + (bands[i] || 0);
+
+        var slider = document.createElement('input');
+        slider.type = 'range';
+        slider.className = 'zv-eq-slider-v';
+        slider.setAttribute('orient', 'vertical');
+        slider.setAttribute('data-eq-idx', String(i));
+        slider.min = '-12';
+        slider.max = '12';
+        slider.step = '1';
+        slider.value = String(bands[i] || 0);
+
+        var lbl = document.createElement('span');
+        lbl.className = 'zv-eq-label';
+        lbl.textContent = labels[i];
+
+        col.appendChild(valSpan);
+        col.appendChild(slider);
+        col.appendChild(lbl);
+        grid.appendChild(col);
+      }
+    }
 
     document.getElementById('zv-modal-close-btn').addEventListener('click', function () { overlay.remove(); });
     overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.remove(); });

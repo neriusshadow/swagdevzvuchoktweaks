@@ -1,9 +1,20 @@
 {
   "manifest_version": 3,
   "name": "SWAGdev ZVUCHOKtweaker — Discord RPC & Твики",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "description": "Discord Rich Presence статус для Звучка на huEVO (huevo.su и huevo.departament.site), управление плеером и удобные твики в стиле ВКонтакте 2016.",
   "author": "neriusshadow huEVO SWAGdev",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "swagdev-zvuchoktweaker@departament.site",
+      "strict_min_version": "109.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
   "permissions": [
     "storage",
     "tabs",
