@@ -1,0 +1,1334 @@
+/* ====================================================================
+   SWAGdev ZVUCHOKtweaker — Аутентичный стиль huEVO (VK 2016 Style)
+   neriusshadow / SWAGdev
+   ==================================================================== */
+
+:root {
+  --vk-blue-dark: #3b5e86;
+  --vk-blue-mid: #4c739e;
+  --vk-blue-light: #5077a2;
+  --vk-title-blue: #2b587a;
+  --vk-title-hover: #1e3d54;
+  --vk-border: #e7ebf0;
+  --vk-border-light: #f0f2f5;
+  --vk-text-black: #000000;
+  --vk-text-muted: #828c96;
+  --vk-font: Tahoma, Verdana, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 336px;
+  max-height: 560px;
+  background-color: transparent;
+  color: var(--vk-text-black);
+  font-family: var(--vk-font);
+  font-size: 11px;
+  line-height: 1.35;
+  overflow: hidden;
+  user-select: none;
+}
+
+body.full-tab-mode {
+  width: 100vw;
+  max-width: 440px;
+  min-height: 100vh;
+  max-height: none;
+  margin: 0 auto;
+  padding: 16px 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 540px;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #3f648d;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+}
+
+body.full-tab-mode .app-container {
+  height: calc(100vh - 32px);
+  max-height: 720px;
+}
+
+/* ====================================================================
+   Шапка в точности как в huEVO themes
+   ==================================================================== */
+.app-header {
+  background: linear-gradient(to bottom, #5077a2 0%, #3e628a 100%);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+  border-bottom: 1px solid #33557c;
+  color: #ffffff;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.logo-text {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: -0.3px;
+  color: #ffffff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+
+.badge-tag {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 1px 5px;
+  border-radius: 3px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.5px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #4cd964;
+  box-shadow: 0 0 6px #4cd964;
+  transition: all 0.2s ease;
+}
+
+.status-dot.disabled {
+  background-color: #ff3b30;
+  box-shadow: 0 0 6px #ff3b30;
+}
+
+.status-dot.waiting {
+  background-color: #ffcc00;
+  box-shadow: 0 0 6px #ffcc00;
+}
+
+.status-text {
+  font-size: 11px;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.btn-tab-mode {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  color: #ffffff;
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 11px;
+  cursor: pointer;
+  line-height: 14px;
+}
+
+.btn-tab-mode:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* ====================================================================
+   Главная кнопка перехода в каталог
+   ==================================================================== */
+.main-action-wrap {
+  padding: 8px 12px 6px 12px;
+  background-color: #ffffff;
+}
+
+.main-action-btn {
+  width: 100%;
+  background: linear-gradient(to bottom, #597da3 0%, #45688e 100%);
+  border: 1px solid #365373;
+  color: #ffffff;
+  padding: 7px 10px;
+  border-radius: 3px;
+  font-family: var(--vk-font);
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  text-shadow: 0 1px 0 #2a4565;
+  transition: all 0.15s ease;
+}
+
+.main-action-btn:hover {
+  background: linear-gradient(to bottom, #6088b2 0%, #4b729c 100%);
+}
+
+.main-action-btn:active {
+  background: #3e628a;
+  transform: translateY(1px);
+}
+
+/* ====================================================================
+   3-колоночный статус-бар
+   ==================================================================== */
+.stats-bar {
+  display: flex;
+  background: #f7f8fa;
+  border-top: 1px solid #e7ebf0;
+  border-bottom: 1px solid #e7ebf0;
+  padding: 5px 0;
+}
+
+.stat-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #e7ebf0;
+  cursor: default;
+}
+
+.stat-col:last-child {
+  border-right: none;
+}
+
+.stat-num {
+  font-size: 13px;
+  font-weight: bold;
+  color: #2b587a;
+}
+
+.stat-num.stat-active-text {
+  font-size: 11px;
+  color: #27ae60;
+}
+
+.stat-num.stat-warn {
+  color: #e67e22;
+}
+
+.stat-label {
+  font-size: 9.5px;
+  color: #828c96;
+  text-transform: lowercase;
+}
+
+/* ====================================================================
+   Навигационная полоса вкладок
+   ==================================================================== */
+.nav-tabs-strip {
+  display: flex;
+  background: #f0f2f5;
+  border-bottom: 1px solid #d3d9de;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-tabs-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-btn {
+  flex: 0 0 auto;
+  padding: 6px 9px;
+  background: transparent;
+  border: none;
+  font-family: var(--vk-font);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: #55677d;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  text-align: center;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.tab-btn:hover {
+  color: #2b587a;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.tab-btn.active {
+  color: #2b587a;
+  font-weight: bold;
+  border-bottom: 2px solid #5077a2;
+  background: #ffffff;
+}
+
+/* ====================================================================
+   Скроллируемый контент
+   ==================================================================== */
+.content-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 12px;
+  background-color: #ffffff;
+}
+
+.content-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.content-scroll::-webkit-scrollbar-thumb {
+  background: #c5d0db;
+  border-radius: 3px;
+}
+
+.tab-pane {
+  display: none;
+}
+.tab-pane.active {
+  display: block;
+}
+
+.section-heading {
+  font-size: 11.5px;
+  font-weight: bold;
+  color: #2b587a;
+  border-bottom: 1px solid #e7ebf0;
+  padding-bottom: 4px;
+  margin: 10px 0 8px 0;
+}
+
+.section-heading:first-child {
+  margin-top: 0;
+}
+
+/* ====================================================================
+   Карточка плеера (VK 2016 Audio Player Style)
+   ==================================================================== */
+.player-card {
+  background: #f7f8fa;
+  border: 1px solid #d3d9de;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.player-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.player-cover {
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  background-size: cover;
+  background-position: center;
+  background-color: #45688e;
+  border: 1px solid #c5d0db;
+  flex-shrink: 0;
+}
+
+.player-meta {
+  flex: 1;
+  overflow: hidden;
+}
+
+.player-title {
+  font-size: 12px;
+  font-weight: bold;
+  color: #2b587a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-artist {
+  font-size: 11px;
+  color: #656565;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+.player-progress-wrap {
+  margin-bottom: 8px;
+}
+
+.player-time-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #828c96;
+  margin-bottom: 3px;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 5px;
+  background: #e1e5eb;
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: #5077a2;
+  border-radius: 3px;
+  transition: width 0.2s linear;
+}
+
+.player-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btn-ctrl {
+  background: #ffffff;
+  border: 1px solid #c5d0db;
+  border-radius: 3px;
+  width: 28px;
+  height: 26px;
+  cursor: pointer;
+  font-size: 11px;
+  color: #4c739e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.btn-ctrl:hover {
+  background: #f0f2f5;
+  border-color: #9cb1c9;
+}
+
+.btn-ctrl-main {
+  background: linear-gradient(to bottom, #597da3 0%, #45688e 100%);
+  border: 1px solid #365373;
+  color: #ffffff;
+  border-radius: 4px;
+  width: 38px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.btn-ctrl-main:hover {
+  background: linear-gradient(to bottom, #6088b2 0%, #4b729c 100%);
+}
+
+/* ====================================================================
+   Discord Live Mockup Preview Box (1 в 1 по скриншоту)
+   ==================================================================== */
+.discord-preview-box {
+  background: #2b2d31;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #dbdee1;
+  margin-bottom: 10px;
+  border: 1px solid #1e1f22;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.discord-preview-header {
+  font-size: 11px;
+  font-weight: 600;
+  color: #dbdee1;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.discord-preview-body {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.discord-large-wrap {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+}
+
+.discord-large-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #1e1f22;
+}
+
+.discord-small-badge {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #2b2d31;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.discord-small-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.discord-text-block {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.discord-details {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+}
+
+.discord-state {
+  font-size: 11.5px;
+  color: #dbdee1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+
+.discord-timeline-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 10px;
+  color: #949ba4;
+  font-variant-numeric: tabular-nums;
+}
+
+.discord-timeline-bar {
+  flex: 1;
+  height: 3.5px;
+  background: #4e5058;
+  border-radius: 2px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.discord-timeline-fill {
+  height: 100%;
+  background: #ffffff;
+  border-radius: 2px;
+  transition: width 0.3s linear;
+}
+
+.discord-timeline-dot {
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
+  border-radius: 50%;
+  margin-left: -3px;
+  flex-shrink: 0;
+}
+
+/* ====================================================================
+   Toggle Card (Стиль VK переключателей)
+   ==================================================================== */
+.toggle-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f2f5;
+}
+
+.toggle-info {
+  display: flex;
+  flex-direction: column;
+  padding-right: 8px;
+}
+
+.toggle-title {
+  font-size: 11px;
+  font-weight: bold;
+  color: #222222;
+}
+
+.toggle-desc {
+  font-size: 9.5px;
+  color: #828c96;
+  margin-top: 1px;
+}
+
+.switch-toggle {
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.switch-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-pill {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #c5d0db;
+  transition: 0.2s ease;
+  border-radius: 18px;
+}
+
+.toggle-pill:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.2s ease;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.switch-toggle input:checked + .toggle-pill {
+  background-color: #5077a2;
+}
+
+.switch-toggle input:checked + .toggle-pill:before {
+  transform: translateX(14px);
+}
+
+/* ====================================================================
+   Формы и кнопки
+   ==================================================================== */
+.form-row {
+  margin: 6px 0;
+}
+
+.field-label {
+  display: block;
+  font-size: 10px;
+  color: #656565;
+  margin-bottom: 3px;
+}
+
+.clean-input {
+  width: 100%;
+  padding: 5px 8px;
+  background: #ffffff;
+  border: 1px solid #c5d0db;
+  border-radius: 3px;
+  font-family: var(--vk-font);
+  font-size: 11px;
+  color: #000000;
+  outline: none;
+}
+
+.clean-input:focus {
+  border-color: #5077a2;
+}
+
+.action-buttons-row {
+  margin-top: 10px;
+}
+
+.btn-blue-sm {
+  width: 100%;
+  padding: 6px 10px;
+  background: linear-gradient(to bottom, #597da3 0%, #45688e 100%);
+  border: 1px solid #365373;
+  color: #ffffff;
+  border-radius: 3px;
+  font-family: var(--vk-font);
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  text-shadow: 0 1px 0 #2a4565;
+  transition: all 0.15s ease;
+}
+
+.btn-blue-sm:hover {
+  background: linear-gradient(to bottom, #6088b2 0%, #4b729c 100%);
+}
+
+/* ====================================================================
+   Bridge карточка и справочный блок
+   ==================================================================== */
+.bridge-status-card {
+  background: #f7f8fa;
+  border: 1px solid #d3d9de;
+  border-radius: 4px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+}
+
+.bridge-status-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: #2b587a;
+  margin-bottom: 3px;
+}
+
+.bridge-indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ff3b30;
+  box-shadow: 0 0 5px #ff3b30;
+  flex-shrink: 0;
+}
+
+.bridge-indicator-dot.active {
+  background-color: #4cd964;
+  box-shadow: 0 0 5px #4cd964;
+}
+
+.bridge-status-desc {
+  font-size: 10px;
+  color: #656565;
+}
+
+.help-box {
+  background: #fffbe6;
+  border: 1px solid #ffe58f;
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-size: 10.5px;
+  color: #594300;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.help-list {
+  margin: 6px 0 0 16px;
+  font-size: 10px;
+}
+
+.help-list li {
+  margin-bottom: 4px;
+}
+
+code {
+  background: rgba(0, 0, 0, 0.06);
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-family: monospace;
+}
+
+.author-credits {
+  font-size: 9.5px;
+  color: #828c96;
+  text-align: center;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #f0f2f5;
+}
+
+/* ====================================================================
+   Футер попапа
+   ==================================================================== */
+.app-footer {
+  padding: 6px 12px;
+  background: #f7f8fa;
+  border-top: 1px solid #e7ebf0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
+}
+
+.footer-link-btn {
+  background: none;
+  border: none;
+  color: #2b587a;
+  font-family: var(--vk-font);
+  font-size: 10.5px;
+  cursor: pointer;
+}
+
+.footer-link-btn:hover {
+  text-decoration: underline;
+}
+
+.footer-version {
+  font-size: 9.5px;
+  color: #828c96;
+}
+
+/* ====================================================================
+   Быстрые действия под карточкой плеера
+   ==================================================================== */
+.player-quick-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed #e7ebf0;
+}
+
+.btn-quick-chip {
+  flex: 1;
+  padding: 4px 6px;
+  background: #f0f2f5;
+  border: 1px solid #d3d9de;
+  border-radius: 4px;
+  font-size: 10px;
+  font-family: var(--vk-font);
+  font-weight: 500;
+  color: #2b587a;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-quick-chip:hover {
+  background: #5077a2;
+  border-color: #3b5e86;
+  color: #ffffff;
+}
+
+/* ====================================================================
+   Стили вкладки ЭКВАЛАЙЗЕР & DSP
+   ==================================================================== */
+.dsp-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  background: #f7f9fa;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #e7ebf0;
+}
+
+.dsp-preset-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dsp-label {
+  font-size: 11px;
+  font-weight: bold;
+  color: #2b587a;
+}
+
+.clean-select {
+  padding: 3px 6px;
+  border: 1px solid #c5d0db;
+  border-radius: 3px;
+  font-size: 10.5px;
+  font-family: var(--vk-font);
+  background: #ffffff;
+  color: #2b587a;
+  cursor: pointer;
+}
+
+/* Сетка 10 вертикальных полос */
+.eq-grid-wrap {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  background: #f7f9fa;
+  border: 1px solid #e7ebf0;
+  border-radius: 6px;
+  padding: 8px 6px;
+  margin-bottom: 10px;
+}
+
+.eq-band-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.eq-val-text {
+  font-size: 8.5px;
+  font-weight: bold;
+  color: #55677d;
+  height: 11px;
+  text-align: center;
+}
+
+.eq-v-slider {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  -webkit-appearance: slider-vertical;
+  appearance: slider-vertical;
+  inline-size: 90px;
+  block-size: 16px;
+  width: 16px;
+  height: 90px;
+  padding: 0;
+  margin: 0 auto;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  background: transparent;
+}
+
+.eq-freq-label {
+  font-size: 8.5px;
+  font-weight: bold;
+  color: #2b587a;
+  text-align: center;
+}
+
+/* Bass Boost и Reverb */
+.dsp-fx-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.dsp-fx-card {
+  background: #f7f9fa;
+  border: 1px solid #e7ebf0;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.dsp-fx-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.dsp-fx-title {
+  font-size: 10.5px;
+  font-weight: bold;
+  color: #2b587a;
+}
+
+.dsp-fx-val {
+  font-size: 10.5px;
+  color: #55677d;
+}
+
+.clean-range {
+  width: 100%;
+  cursor: pointer;
+  accent-color: #5077a2;
+}
+
+/* Speed & Pitch */
+.dsp-speed-card {
+  background: #f7f9fa;
+  border: 1px solid #e7ebf0;
+  border-radius: 6px;
+  padding: 9px 10px;
+}
+
+.dsp-pitch-row {
+  margin-top: 6px;
+}
+
+.dsp-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  color: #2b587a;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.dsp-subnote {
+  font-size: 9.5px;
+  color: #828c96;
+  margin-top: 2px;
+  line-height: 1.25;
+}
+
+.dsp-quick-modes {
+  display: flex;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.btn-dsp-chip {
+  flex: 1;
+  padding: 5px 4px;
+  background: #ffffff;
+  border: 1px solid #c5d0db;
+  border-radius: 4px;
+  font-size: 9.5px;
+  font-family: var(--vk-font);
+  font-weight: bold;
+  color: #3b5e86;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-dsp-chip:hover {
+  background: #5077a2;
+  border-color: #3b5e86;
+  color: #ffffff;
+}
+
+/* ====================================================================
+   Стили вкладки СТАТИСТИКА
+   ==================================================================== */
+.stats-period-bar {
+  display: flex;
+  background: #f0f2f5;
+  border-radius: 4px;
+  padding: 2px;
+  margin-bottom: 10px;
+  border: 1px solid #d3d9de;
+}
+
+.btn-period {
+  flex: 1;
+  padding: 4px 6px;
+  background: transparent;
+  border: none;
+  border-radius: 3px;
+  font-size: 10.5px;
+  font-family: var(--vk-font);
+  font-weight: 500;
+  color: #55677d;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-period.active {
+  background: #ffffff;
+  color: #2b587a;
+  font-weight: bold;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.stats-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.stats-hero-col {
+  background: linear-gradient(135deg, #f7f9fa 0%, #edf1f5 100%);
+  border: 1px solid #e7ebf0;
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stats-hero-num {
+  font-size: 16px;
+  font-weight: bold;
+  color: #2b587a;
+  line-height: 1.2;
+}
+
+.stats-hero-sub {
+  font-size: 10px;
+  color: #828c96;
+  margin-top: 3px;
+}
+
+.stat-top-track-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  border: 1px solid #e7ebf0;
+  border-radius: 6px;
+  padding: 8px;
+}
+
+.stat-top-track-cover {
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+  background-size: cover;
+  background-position: center;
+  background-color: #5077a2;
+  flex-shrink: 0;
+}
+
+.stat-top-track-info {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.stat-top-track-title {
+  font-size: 11.5px;
+  font-weight: bold;
+  color: #2b587a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stat-top-track-artist {
+  font-size: 10.5px;
+  color: #656565;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+.stat-top-track-count {
+  background: #5077a2;
+  color: #ffffff;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.stat-top-artists {
+  background: #ffffff;
+  border: 1px solid #e7ebf0;
+  border-radius: 6px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-artist-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-artist-rank {
+  font-size: 11px;
+  font-weight: bold;
+  color: #828c96;
+  width: 14px;
+}
+
+.stat-artist-bar-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-artist-name-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10.5px;
+}
+
+.stat-artist-name {
+  font-weight: bold;
+  color: #2b587a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stat-artist-count {
+  color: #828c96;
+  font-size: 9.5px;
+}
+
+.stat-artist-progress-bg {
+  width: 100%;
+  height: 5px;
+  background: #e7ebf0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.stat-artist-progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #5077a2, #45688e);
+  border-radius: 3px;
+}
+
+.stat-empty-msg {
+  font-size: 10.5px;
+  color: #828c96;
+  text-align: center;
+  padding: 8px;
+}
+
+.stat-action-row {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.btn-ghost-sm {
+  background: transparent;
+  border: 1px solid #d3d9de;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 10px;
+  font-family: var(--vk-font);
+  color: #828c96;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-ghost-sm:hover {
+  background: #f7f9fa;
+  color: #c0392b;
+  border-color: #e74c3c;
+}
+
+/* ====================================================================
+   Таймер сна и Пакетные действия в Твиках
+   ==================================================================== */
+.tweaks-box {
+  background: #f7f9fa;
+  border: 1px solid #e7ebf0;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+.tweaks-box-desc {
+  font-size: 10.5px;
+  color: #656565;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.sleep-buttons-row {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-sleep-opt {
+  flex: 1;
+  padding: 5px 4px;
+  background: #ffffff;
+  border: 1px solid #c5d0db;
+  border-radius: 4px;
+  font-size: 10px;
+  font-family: var(--vk-font);
+  font-weight: 500;
+  color: #2b587a;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.btn-sleep-opt:hover {
+  background: #eef2f6;
+}
+
+.btn-sleep-opt.active {
+  background: #5077a2;
+  border-color: #3b5e86;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.sleep-ticker-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #d35400;
+  background: rgba(230, 126, 34, 0.12);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(230, 126, 34, 0.35);
+}
+
+.sleep-indicator-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e67e22;
+  box-shadow: 0 0 5px #e67e22;
+}
+
+.playlist-tools-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.btn-action-tool {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 10px;
+  background: #ffffff;
+  border: 1px solid #c5d0db;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: var(--vk-font);
+  font-weight: bold;
+  color: #2b587a;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-action-tool:hover {
+  background: #5077a2;
+  border-color: #3b5e86;
+  color: #ffffff;
+}
+

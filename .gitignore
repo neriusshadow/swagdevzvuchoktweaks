@@ -1,0 +1,7 @@
+.DS_Store
+build/
+*.zip
+*.xpi
+вв.txt
+__pycache__/
+*.pyc

@@ -1,0 +1,71 @@
+{
+  "manifest_version": 3,
+  "name": "SWAGdev ZVUCHOKtweaker — Discord RPC & Твики",
+  "version": "1.1.0",
+  "description": "Discord Rich Presence статус для Звучка на huEVO (huevo.su и huevo.departament.site), управление плеером и удобные твики в стиле ВКонтакте 2016.",
+  "author": "neriusshadow huEVO SWAGdev",
+  "permissions": [
+    "storage",
+    "tabs",
+    "notifications"
+  ],
+  "host_permissions": [
+    "*://huevo.su/*",
+    "*://*.huevo.su/*",
+    "*://huevo.departament.site/*",
+    "*://*.huevo.departament.site/*",
+    "http://127.0.0.1/*",
+    "http://localhost/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://huevo.su/*",
+        "*://*.huevo.su/*",
+        "*://huevo.departament.site/*",
+        "*://*.huevo.departament.site/*"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "js": [
+        "secrets.js",
+        "content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "SWAGdev ZVUCHOKtweaker",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "zvuchok_logo.png",
+        "icons/*"
+      ],
+      "matches": [
+        "*://huevo.su/*",
+        "*://*.huevo.su/*",
+        "*://huevo.departament.site/*",
+        "*://*.huevo.departament.site/*"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,465 @@
+/* ====================================================================
+   SWAGdev ZVUCHOKtweaker — Стили для сайта huEVO (VK 2016 Audio Style)
+   neriusshadow / SWAGdev
+   ==================================================================== */
+
+/* Кнопка быстрого скачивания трека в списке */
+.zv-dl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-left: 6px;
+  color: #828c96;
+  text-decoration: none;
+  border-radius: 3px;
+  vertical-align: middle;
+  opacity: 0.65;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.zv-dl-btn:hover {
+  opacity: 1;
+  color: #2b587a;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.zv-dl-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* Бейджик статуса Discord RPC в шапке плеера */
+.zv-rpc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  margin-left: 8px;
+  background: rgba(88, 101, 242, 0.18);
+  border: 1px solid rgba(88, 101, 242, 0.4);
+  border-radius: 12px;
+  font-size: 10.5px;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  color: #5865f2;
+  cursor: default;
+  user-select: none;
+  vertical-align: middle;
+  transition: all 0.2s ease;
+}
+
+.zv-rpc-badge.active {
+  background: rgba(46, 204, 113, 0.15);
+  border-color: rgba(46, 204, 113, 0.45);
+  color: #27ae60;
+}
+
+.zv-rpc-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+  box-shadow: 0 0 4px currentColor;
+}
+
+/* Всплывающее VK-уведомление о смене трека */
+.zv-toast-notify {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999999;
+  background: #ffffff;
+  border: 1px solid #d3d9de;
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 10px;
+  max-width: 340px;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  animation: zvFadeIn 0.25s ease forwards;
+  pointer-events: none;
+}
+
+.zv-toast-cover {
+  width: 38px;
+  height: 38px;
+  border-radius: 3px;
+  background-size: cover;
+  background-position: center;
+  background-color: #5077a2;
+  flex-shrink: 0;
+}
+
+.zv-toast-body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.zv-toast-title {
+  font-size: 11.5px;
+  font-weight: bold;
+  color: #2b587a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.zv-toast-artist {
+  font-size: 11px;
+  color: #656565;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@keyframes zvFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ====================================================================
+   Кнопки скачивания плейлиста и экспорта M3U
+   ==================================================================== */
+.zv-playlist-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0;
+  vertical-align: middle;
+}
+
+.zv-btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  background: #f0f2f5;
+  border: 1px solid #d3d9de;
+  border-radius: 4px;
+  color: #2b587a;
+  font-size: 11px;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.zv-btn-action:hover {
+  background: #5077a2;
+  border-color: #3b5e86;
+  color: #ffffff;
+}
+
+.zv-btn-action svg {
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+}
+
+/* Кнопка открытия эквалайзера в шапке плеера */
+.zv-dsp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  margin-left: 6px;
+  background: #eef2f6;
+  border: 1px solid #c5d0db;
+  border-radius: 3px;
+  color: #3f648d;
+  font-size: 11px;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  vertical-align: middle;
+}
+
+.zv-dsp-btn:hover,
+.zv-dsp-btn.active {
+  background: #5077a2;
+  border-color: #3b5e86;
+  color: #ffffff;
+}
+
+/* Бейджик активного таймера сна */
+.zv-sleep-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  margin-left: 6px;
+  background: rgba(230, 126, 34, 0.15);
+  border: 1px solid rgba(230, 126, 34, 0.45);
+  border-radius: 12px;
+  font-size: 10.5px;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  color: #d35400;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+/* ====================================================================
+   Модальное окно Эквалайзера & DSP на странице huEVO
+   ==================================================================== */
+.zv-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: zvFadeIn 0.2s ease;
+}
+
+.zv-modal-box {
+  background: #ffffff;
+  border-radius: 6px;
+  width: 90%;
+  max-width: 580px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  border: 1px solid #3f648d;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  overflow: hidden;
+}
+
+.zv-modal-header {
+  background: linear-gradient(to bottom, #5077a2 0%, #45688e 100%);
+  color: #ffffff;
+  padding: 9px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  font-weight: bold;
+}
+
+.zv-modal-close {
+  background: transparent;
+  border: none;
+  color: #d3e0ee;
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.zv-modal-close:hover {
+  color: #ffffff;
+}
+
+.zv-modal-body {
+  padding: 14px 16px;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+/* 10-полосный эквалайзер сетка ползунков */
+.zv-eq-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 0;
+  background: #f7f9fa;
+  border-radius: 4px;
+  border: 1px solid #e7ebf0;
+  margin: 10px 0;
+}
+
+.zv-eq-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.zv-eq-val {
+  font-size: 9px;
+  color: #656565;
+  font-weight: bold;
+  height: 12px;
+}
+
+.zv-eq-slider-v {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  -webkit-appearance: slider-vertical;
+  appearance: slider-vertical;
+  inline-size: 110px;
+  block-size: 16px;
+  width: 16px;
+  height: 110px;
+  padding: 0;
+  margin: 0 auto;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  background: transparent;
+}
+
+.zv-eq-label {
+  font-size: 9px;
+  color: #2b587a;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Блок дополнительных эффектов (Bass Boost, Reverb, Pitch/Speed) */
+.zv-fx-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.zv-fx-card {
+  background: #f7f9fa;
+  border: 1px solid #e7ebf0;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.zv-fx-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.zv-fx-title {
+  font-size: 11px;
+  font-weight: bold;
+  color: #2b587a;
+}
+
+.zv-fx-val {
+  font-size: 11px;
+  color: #55677d;
+  font-weight: bold;
+}
+
+.zv-fx-slider {
+  width: 100%;
+  cursor: pointer;
+}
+
+.zv-presets-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.zv-select {
+  padding: 4px 8px;
+  border: 1px solid #c5d0db;
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 11px;
+  background: #ffffff;
+  color: #2b587a;
+  cursor: pointer;
+}
+
+.zv-quick-modes {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.zv-btn-mode {
+  flex: 1;
+  padding: 5px 6px;
+  background: #ffffff;
+  border: 1px solid #c5d0db;
+  border-radius: 3px;
+  font-size: 10.5px;
+  font-family: inherit;
+  font-weight: 500;
+  color: #3b5e86;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.zv-btn-mode:hover {
+  background: #5077a2;
+  color: #ffffff;
+  border-color: #3b5e86;
+}
+
+/* ====================================================================
+   Модальное окно прогресса пакетного скачивания ZIP
+   ==================================================================== */
+.zv-progress-modal {
+  background: #ffffff;
+  border-radius: 6px;
+  width: 380px;
+  padding: 18px 20px;
+  border: 1px solid #3f648d;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+}
+
+.zv-progress-title {
+  font-size: 13px;
+  font-weight: bold;
+  color: #2b587a;
+  margin-bottom: 4px;
+}
+
+.zv-progress-sub {
+  font-size: 11px;
+  color: #656565;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 10px;
+}
+
+.zv-progress-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: #e7ebf0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.zv-progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, #5077a2, #27ae60);
+  border-radius: 4px;
+  transition: width 0.2s ease;
+}
+
+.zv-progress-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.zv-progress-count {
+  font-size: 11px;
+  color: #55677d;
+  font-weight: bold;
+}
+

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>SWAGdev ZVUCHOKtweaker</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Шапка в точности как в huEVO themes / VK 2016 -->
+    <header class="app-header">
+      <div class="header-left">
+        <span class="logo-text">huEVO</span>
+        <span class="badge-tag">ЗВУЧОК</span>
+      </div>
+      <div class="header-right">
+        <div class="status-indicator" id="status-toggle" title="Нажмите для быстрой проверки Discord RPC">
+          <span class="status-dot" id="status-dot"></span>
+          <span class="status-text" id="status-text">RPC готов</span>
+        </div>
+        <button id="btn-open-tab" class="btn-tab-mode" title="Развернуть во весь экран в новой вкладке">
+          ⛶
+        </button>
+      </div>
+    </header>
+
+    <!-- Главная большая кнопка перехода в Звучок -->
+    <div class="main-action-wrap">
+      <button class="main-action-btn" id="btn-open-zvuchok" title="Перейти в раздел Звучок на huEVO">
+        <span class="action-icon">🎵</span>
+        <span class="action-title" id="main-action-title">Перейти в Звучок (huEVO)</span>
+      </button>
+    </div>
+
+    <!-- 3-колоночный статус-бар -->
+    <div class="stats-bar">
+      <div class="stat-col" id="col-rpc" title="Статус подключения Discord RPC">
+        <span class="stat-num stat-active-text" id="stat-rpc-status">Поиск...</span>
+        <span class="stat-label">Discord RPC</span>
+      </div>
+      <div class="stat-col" id="col-tracks" title="Прослушано треков за сессию">
+        <span class="stat-num" id="stat-tracks-count">0</span>
+        <span class="stat-label">треков</span>
+      </div>
+      <div class="stat-col" id="col-player" title="Текущее состояние воспроизведения">
+        <span class="stat-num" id="stat-player-state">Ожидание</span>
+        <span class="stat-label">плеер huEVO</span>
+      </div>
+    </div>
+
+    <!-- Навигационные вкладки -->
+    <nav class="nav-tabs-strip">
+      <button class="tab-btn active" data-tab="tab-player">Плеер & RPC</button>
+      <button class="tab-btn" data-tab="tab-dsp">🎚 Эквалайзер</button>
+      <button class="tab-btn" data-tab="tab-stats">📊 Статистика</button>
+      <button class="tab-btn" data-tab="tab-discord">Discord RPC</button>
+      <button class="tab-btn" data-tab="tab-tweaks">Твики & Таймер</button>
+      <button class="tab-btn" data-tab="tab-bridge">Bridge & FAQ</button>
+    </nav>
+
+    <!-- Основной скроллируемый контент -->
+    <main class="content-scroll">
+      <!-- ВКЛАДКА 1: ПЛЕЕР И ПРЕВЬЮ RPC -->
+      <section id="tab-player" class="tab-pane active">
+        <div class="section-heading">Текущий трек в Звучке</div>
+
+        <!-- Карточка активного плеера VK 2016 -->
+        <div class="player-card">
+          <div class="player-top">
+            <div class="player-cover" id="player-cover" style="background-image: url('zvuchok_logo.png');"></div>
+            <div class="player-meta">
+              <div class="player-title" id="player-title">Ничего не играет</div>
+              <div class="player-artist" id="player-artist">Включите песню на huevo.su/zvuchok</div>
+            </div>
+          </div>
+
+          <!-- Прогресс воспроизведения -->
+          <div class="player-progress-wrap">
+            <div class="player-time-row">
+              <span id="player-cur-time">0:00</span>
+              <span id="player-total-time">0:00</span>
+            </div>
+            <div class="progress-bar-bg" id="progress-bar-wrap">
+              <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- Кнопки управления воспроизведением -->
+          <div class="player-controls-row">
+            <button class="btn-ctrl" id="btn-prev" title="Предыдущий трек">⏮</button>
+            <button class="btn-ctrl-main" id="btn-toggle" title="Воспроизведение / Пауза">▶</button>
+            <button class="btn-ctrl" id="btn-next" title="Следующий трек">⏭</button>
+          </div>
+
+          <!-- Быстрые действия под плеером -->
+          <div class="player-quick-row">
+            <button class="btn-quick-chip" id="chip-dsp" title="Перейти в эквалайзер">🎚 Эквалайзер</button>
+            <button class="btn-quick-chip" id="chip-zip" title="Скачать текущий плейлист архивом .zip">📥 Скачать .zip</button>
+            <button class="btn-quick-chip" id="chip-sleep" title="Включить таймер сна на 30 мин">💤 Таймер 30м</button>
+          </div>
+        </div>
+
+        <!-- Превью отображения в Discord профиле -->
+        <div class="section-heading">Превью статуса в Discord</div>
+        <div class="discord-preview-box">
+          <div class="discord-preview-header" id="discord-preview-heading">Listening to huEVO Звучок</div>
+          <div class="discord-preview-body">
+            <div class="discord-large-wrap">
+              <img src="zvuchok_logo.png" class="discord-large-img" alt="Обложка трека">
+              <span class="discord-small-badge" id="discord-small-badge" title="huEVO Звучок">
+                <img src="zvuchok_logo.png" class="discord-small-icon" alt="Звучок">
+              </span>
+            </div>
+            <div class="discord-text-block">
+              <div class="discord-details" id="discord-details-text">Ничего не играет</div>
+              <div class="discord-state" id="discord-state-text">huEVO</div>
+              <div class="discord-timeline-row">
+                <span id="discord-cur-time">00:00</span>
+                <div class="discord-timeline-bar">
+                  <div class="discord-timeline-fill" id="discord-timeline-fill" style="width: 0%;"></div>
+                  <span class="discord-timeline-dot"></span>
+                </div>
+                <span id="discord-total-time">00:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ВКЛАДКА 2: 10-ПОЛОСНЫЙ ЭКВАЛАЙЗЕР И DSP -->
+      <section id="tab-dsp" class="tab-pane">
+        <div class="section-heading">10-полосный эквалайзер & DSP</div>
+
+        <div class="dsp-top-bar">
+          <div class="dsp-preset-wrap">
+            <span class="dsp-label">Пресет:</span>
+            <select id="select-dsp-preset" class="clean-select">
+              <option value="default">По умолчанию (Flat)</option>
+              <option value="club">Клубный бас</option>
+              <option value="rock">Рок</option>
+              <option value="vocal">Вокал</option>
+              <option value="hall">Концертный зал</option>
+              <option value="lofi">ВК 2007 Lo-Fi</option>
+              <option value="custom">Пользовательский</option>
+            </select>
+          </div>
+          <label class="switch-toggle" title="Включить / выключить эквалайзер и DSP">
+            <input type="checkbox" id="toggle-dsp-enabled" checked>
+            <span class="toggle-pill"></span>
+          </label>
+        </div>
+
+        <!-- Сетка 10 полос эквалайзера -->
+        <div class="eq-grid-wrap">
+          <div class="eq-band-col">
+            <span class="eq-val-text" id="eqv-0">0</span>
+            <input type="range" class="eq-v-slider" orient="vertical" data-band="0" min="-12" max="12" step="1" value="0">
+            <span class="eq-freq-label">32</span>
+          </div>
+          <div class="eq-band-col">
+            <span class="eq-val-text" id="eqv-1">0</span>
+            <input type="range" class="eq-v-slider" orient="vertical" data-band="1" min="-12" max="12" step="1" value="0">
+            <span class="eq-freq-label">64</span>
+          </div>
+          <div class="eq-band-col">
+            <span class="eq-val-text" id="eqv-2">0</span>
+            <input type="range" class="eq-v-slider" orient="vertical" data-band="2" min="-12" max="12" step="1" value="0">
+            <span class="eq-freq-label">125</span>
+          </div>
+          <div class="eq-band-col">
+            <span class="eq-val-text" id="eqv-3">0</span>
+            <input type="range" class="eq-v-slider" orient="vertical" data-band="3" min="-12" max="12" step="1" value="0">
+            <span class="eq-freq-label">250</span>
+          </div>
+          <div class="eq-band-col">
+            <span class="eq-val-text" id="eqv-4">0</span>
+            <input type="range" class="eq-v-slider" orient="vertical" data-band="4" min="-12" max="12" step="1" value="0">
+            <span class="eq-freq-label">500</span>
+          </div>
+          <div class="eq-band-col">
+            <span class="eq-val-text" id="eqv-5">0</span>
+            <input type="range" class="eq-v-slider" orient="vertical" data-band="5" min="-12" max="12" step="1" value="0">
+            <span class="eq-freq-label">1k</span>
+          </div>
+          <div class="eq-band-col">
+            <span class="eq-val-text" id="eqv-6">0</span>
+            <input type="range" class="eq-v-slider" orient="vertical" data-band="6" min="-12" max="12" step="1" value="0">
+            <span class="eq-freq-label">2k</span>
+          </div>
+          <div class="eq-band-col">
+            <span class="eq-val-text" id="eqv-7">0</span>
+            <input type="range" class="eq-v-slider" orient="vertical" data-band="7" min="-12" max="12" step="1" value="0">
+            <span class="eq-freq-label">4k</span>
+          </div>
+          <div class="eq-band-col">
+            <span class="eq-val-text" id="eqv-8">0</span>
+            <input type="range" class="eq-v-slider" orient="vertical" data-band="8" min="-12" max="12" step="1" value="0">
+            <span class="eq-freq-label">8k</span>
+          </div>
+          <div class="eq-band-col">
+            <span class="eq-val-text" id="eqv-9">0</span>
+            <input type="range" class="eq-v-slider" orient="vertical" data-band="9" min="-12" max="12" step="1" value="0">
+            <span class="eq-freq-label">16k</span>
+          </div>
+        </div>
+
+        <!-- Bass Boost & Reverb -->
+        <div class="dsp-fx-row">
+          <div class="dsp-fx-card">
+            <div class="dsp-fx-header">
+              <span class="dsp-fx-title">🔊 Bass Boost</span>
+              <b class="dsp-fx-val" id="val-bass-boost">+0 dB</b>
+            </div>
+            <input type="range" id="slider-bass-boost" class="clean-range" min="0" max="15" step="1" value="0">
+          </div>
+          <div class="dsp-fx-card">
+            <div class="dsp-fx-header">
+              <span class="dsp-fx-title">🌌 Реверберация</span>
+              <b class="dsp-fx-val" id="val-reverb">0%</b>
+            </div>
+            <input type="range" id="slider-reverb" class="clean-range" min="0" max="100" step="5" value="0">
+          </div>
+        </div>
+
+        <!-- Pitch & Speed / Nightcore / Slowed -->
+        <div class="section-heading" style="margin-top: 10px;">⚡ Скорость & Питч (Pitch)</div>
+        <div class="dsp-speed-card">
+          <div class="dsp-fx-header">
+            <span class="dsp-fx-title">Скорость воспроизведения:</span>
+            <b class="dsp-fx-val" id="val-playback-speed">1.00x</b>
+          </div>
+          <input type="range" id="slider-playback-speed" class="clean-range" min="0.5" max="2.0" step="0.05" value="1.0">
+
+          <div class="dsp-pitch-row">
+            <label class="dsp-checkbox-label">
+              <input type="checkbox" id="toggle-pitch-preserve" checked>
+              <span>Сохранять тональность (Pitch Preserve)</span>
+            </label>
+          </div>
+          <div class="dsp-subnote">Снимите галочку для эффекта Nightcore / Slowed (тональность изменится со скоростью).</div>
+
+          <div class="dsp-quick-modes">
+            <button class="btn-dsp-chip" id="btn-mode-nightcore">⚡ Nightcore (1.28x)</button>
+            <button class="btn-dsp-chip" id="btn-mode-slowed">🌙 Slowed + Reverb</button>
+            <button class="btn-dsp-chip" id="btn-mode-normal">🎵 1.0x Норма</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ВКЛАДКА 3: ЛИЧНАЯ СТАТИСТИКА ПРОСЛУШИВАНИЙ -->
+      <section id="tab-stats" class="tab-pane">
+        <div class="section-heading">Личная статистика прослушиваний</div>
+
+        <div class="stats-period-bar">
+          <button class="btn-period active" data-period="week">7 дней</button>
+          <button class="btn-period" data-period="month">30 дней</button>
+          <button class="btn-period" data-period="all">Всё время</button>
+        </div>
+
+        <!-- Главные карточки времени -->
+        <div class="stats-hero-grid">
+          <div class="stats-hero-col">
+            <span class="stats-hero-num" id="stat-total-time">0 мин</span>
+            <span class="stats-hero-sub">🎧 в наушниках</span>
+          </div>
+          <div class="stats-hero-col">
+            <span class="stats-hero-num" id="stat-total-tracks">0</span>
+            <span class="stats-hero-sub">🎵 прослушано</span>
+          </div>
+        </div>
+
+        <!-- Самый частый трек -->
+        <div class="section-heading" style="margin-top: 10px;">⭐ Самый частый трек</div>
+        <div class="stat-top-track-box">
+          <div class="stat-top-track-cover" id="stat-top-track-cover" style="background-image: url('zvuchok_logo.png');"></div>
+          <div class="stat-top-track-info">
+            <div class="stat-top-track-title" id="stat-top-track-title">Пока нет данных</div>
+            <div class="stat-top-track-artist" id="stat-top-track-artist">Слушайте музыку на huEVO</div>
+          </div>
+          <span class="stat-top-track-count" id="stat-top-track-count">0 раз</span>
+        </div>
+
+        <!-- Топ-5 любимых исполнителей -->
+        <div class="section-heading" style="margin-top: 10px;">🏆 Топ-5 любимых исполнителей</div>
+        <div class="stat-top-artists" id="stat-top-artists-list">
+          <div class="stat-empty-msg">Слушайте треки в Звучке, чтобы собрать статистику!</div>
+        </div>
+
+        <div class="stat-action-row">
+          <button type="button" class="btn-ghost-sm" id="btn-clear-stats">🗑 Очистить историю прослушиваний</button>
+        </div>
+      </section>
+
+      <!-- ВКЛАДКА 4: НАСТРОЙКИ DISCORD RPC -->
+      <section id="tab-discord" class="tab-pane">
+        <div class="section-heading">Настройки Rich Presence</div>
+
+        <div class="toggle-card">
+          <div class="toggle-info">
+            <span class="toggle-title">Включить Discord RPC</span>
+            <span class="toggle-desc">Транслировать текущий трек в ваш профиль Discord</span>
+          </div>
+          <label class="switch-toggle">
+            <input type="checkbox" id="toggle-rpc-enabled" checked>
+            <span class="toggle-pill"></span>
+          </label>
+        </div>
+
+        <div class="toggle-card">
+          <div class="toggle-info">
+            <span class="toggle-title">Показывать время (таймер)</span>
+            <span class="toggle-desc">Отображать прогресс трека (01:23 / 03:45) в профиле</span>
+          </div>
+          <label class="switch-toggle">
+            <input type="checkbox" id="toggle-show-timestamps" checked>
+            <span class="toggle-pill"></span>
+          </label>
+        </div>
+
+        <div class="toggle-card">
+          <div class="toggle-info">
+            <span class="toggle-title">Кнопка «Слушать в Звучке»</span>
+            <span class="toggle-desc">Добавлять интерактивную кнопку со ссылкой на трек</span>
+          </div>
+          <label class="switch-toggle">
+            <input type="checkbox" id="toggle-listen-button" checked>
+            <span class="toggle-pill"></span>
+          </label>
+        </div>
+
+        <div class="toggle-card">
+          <div class="toggle-info">
+            <span class="toggle-title">Скрывать статус на паузе</span>
+            <span class="toggle-desc">Очищать статус в Discord, если трек поставлен на паузу</span>
+          </div>
+          <label class="switch-toggle">
+            <input type="checkbox" id="toggle-hide-paused">
+            <span class="toggle-pill"></span>
+          </label>
+        </div>
+
+        <div class="section-heading">Discord Application ID</div>
+        <div class="form-row">
+          <label class="field-label">Свой Client ID (оставьте пустым для ключа SWAGdev):</label>
+          <input type="text" id="input-custom-client-id" class="clean-input" placeholder="По умолчанию: зашифрованный ключ SWAGdev" maxlength="32">
+        </div>
+
+        <div class="action-buttons-row">
+          <button class="btn-blue-sm" id="btn-test-rpc">🚀 Проверить связь с Discord</button>
+        </div>
+      </section>
+
+      <!-- ВКЛАДКА 5: ТВИКИ, ТАЙМЕР СНА И ПЛЕЙЛИСТЫ -->
+      <section id="tab-tweaks" class="tab-pane">
+        <div class="section-heading">💤 Таймер сна (Sleep Timer)</div>
+        <div class="tweaks-box">
+          <div class="tweaks-box-desc">Плавно убавит громкость до нуля и поставит плеер на паузу.</div>
+          <div class="sleep-buttons-row">
+            <button class="btn-sleep-opt" data-min="15">15 мин</button>
+            <button class="btn-sleep-opt" data-min="30">30 мин</button>
+            <button class="btn-sleep-opt" data-min="60">60 мин</button>
+            <button class="btn-sleep-opt active" data-min="0">Выкл</button>
+          </div>
+          <div class="sleep-ticker-wrap" id="sleep-ticker-box" style="display: none;">
+            <span class="sleep-indicator-dot"></span>
+            <span id="sleep-ticker-label">Таймер активен: 29:45</span>
+          </div>
+        </div>
+
+        <div class="section-heading" style="margin-top: 10px;">📦 Пакетное скачивание & Экспорт</div>
+        <div class="tweaks-box">
+          <div class="playlist-tools-col">
+            <button class="btn-action-tool" id="btn-popup-dl-zip">
+              <span>📥 Скачать текущий плейлист архивом (.zip)</span>
+            </button>
+            <button class="btn-action-tool" id="btn-popup-export-m3u">
+              <span>📑 Экспорт плейлиста в файл .m3u (Winamp / AIMP)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="section-heading" style="margin-top: 10px;">Удобные твики Звучка</div>
+
+        <div class="toggle-card">
+          <div class="toggle-info">
+            <span class="toggle-title">📥 Кнопки скачивания треков</span>
+            <span class="toggle-desc">Кнопка быстрой загрузки MP3 рядом с каждой песней</span>
+          </div>
+          <label class="switch-toggle">
+            <input type="checkbox" id="toggle-download-btns" checked>
+            <span class="toggle-pill"></span>
+          </label>
+        </div>
+
+        <div class="toggle-card">
+          <div class="toggle-info">
+            <span class="toggle-title">💬 Всплывающее VK-уведомление</span>
+            <span class="toggle-desc">Показывает компактную плашку при переключении музыки</span>
+          </div>
+          <label class="switch-toggle">
+            <input type="checkbox" id="toggle-track-toast" checked>
+            <span class="toggle-pill"></span>
+          </label>
+        </div>
+
+        <div class="toggle-card">
+          <div class="toggle-info">
+            <span class="toggle-title">⌨ Горячие клавиши</span>
+            <span class="toggle-desc">Медиа-клавиши и Alt+Стрелки для переключения песен</span>
+          </div>
+          <label class="switch-toggle">
+            <input type="checkbox" id="toggle-hotkeys" checked>
+            <span class="toggle-pill"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- ВКЛАДКА 6: BRIDGE И СПРАВКА -->
+      <section id="tab-bridge" class="tab-pane">
+        <div class="section-heading">Состояние шлюза Discord</div>
+        
+        <div class="bridge-status-card" id="bridge-status-card">
+          <div class="bridge-status-title">
+            <span class="bridge-indicator-dot" id="bridge-indicator-dot"></span>
+            <b id="bridge-status-heading">Проверка подключения...</b>
+          </div>
+          <div class="bridge-status-desc" id="bridge-status-desc">
+            Шлюз обеспечивает прямую связь с Discord Desktop.
+          </div>
+        </div>
+
+        <div class="section-heading">Как подключить Discord?</div>
+        <div class="help-box">
+          <p>Браузерные расширения не имеют прямого доступа к сокетам ОС. Для работы Discord Rich Presence доступно 2 простых варианта:</p>
+          <ol class="help-list">
+            <li><b>Вариант 1 (Встроенный SWAGdev Bridge):</b> Запустите файл <code>start_bridge_mac.command</code> (на Mac) или <code>start_bridge_windows.bat</code> (на Windows) из папки <code>bridge/</code>. Без установок и библиотек!</li>
+            <li><b>Вариант 2 (arRPC):</b> Если у вас установлен <code>arRPC</code>, Vesktop или Legcord — расширение подхватит статус автоматически!</li>
+          </ol>
+        </div>
+
+        <div class="author-credits">
+          <b>SWAGdev ZVUCHOKtweaker</b> — разработано neriusshadow для социальной сети huEVO (huevo.su &amp; huevo.departament.site).
+        </div>
+      </section>
+    </main>
+
+    <!-- Футер попапа в стиле huEVO Games -->
+    <footer class="app-footer">
+      <button type="button" class="footer-link-btn" id="btn-reload-status">↻ Обновить статус</button>
+      <span class="footer-version">v1.0.0 (VK 2016 Style)</span>
+    </footer>
+  </div>
+
+  <script src="secrets.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
